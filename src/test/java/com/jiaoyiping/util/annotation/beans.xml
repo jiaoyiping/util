@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <bean id = "userDaoImpl" class="com.jiaoyiping.util.annotation.UserDaoImpl" />  
+    <bean id = "userDaoImpl1" class="com.jiaoyiping.util.annotation.UserDaoImpl1" />  
+    <bean id = "userServiceImpl" class = "com.jiaoyiping.util.annotation.UserServiceImpl" />  
+</beans>
