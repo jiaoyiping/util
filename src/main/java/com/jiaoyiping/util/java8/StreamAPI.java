@@ -13,10 +13,10 @@ import java.util.List;
  */
 public class StreamAPI {
     public static void main(String[] args) {
-        List<Person> personList = prepareDate();
-        //对集合的操作不需要再使用循环遍历了
-        Person p = personList.stream().filter(person->person.getAge()==5).findFirst().get();
-        System.out.println(p.getName());
+//        List<Person> personList = prepareDate();
+//        //对集合的操作不需要再使用循环遍历了
+//        Person p = personList.stream().filter(person->person.getAge()==5).findFirst().get();
+//        System.out.println(p.getName());
     }
     static List<Person> prepareDate(){
         List<Person> personsList = new ArrayList<Person>();
