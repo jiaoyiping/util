@@ -34,6 +34,7 @@ public class AppTest
     public void testApp()
     {
 		System.out.println("测试一下git推送");
+		System.out.println("测试一下git分支");
         assertTrue( true );
     }
 }
