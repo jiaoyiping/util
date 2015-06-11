@@ -77,7 +77,6 @@ public class HSMap<K,V> extends HashMap<K,List<V>> {
 			K key = (K)m.invoke(value);
 			putItem(key,value);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

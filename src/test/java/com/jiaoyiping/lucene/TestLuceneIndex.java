@@ -18,6 +18,12 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,11 +38,14 @@ public class TestLuceneIndex {
     public void testIndex() throws IOException {
         Directory directory = FSDirectory.open(Paths.get(indexPath));
         IndexWriter writer = new IndexWriter(directory,new IndexWriterConfig(new StandardAnalyzer()));
-        Document document = new Document();
-        //Field有多种实现类可选，不同的实现类有不同的索引策略
-        document.add(new TextField("name","张三", Field.Store.YES));
-        document.add(new IntField("age",23,Field.Store.YES));
-        writer.addDocument(document);
+        List<String> summaryList = this.getDiaries();
+        for(String item:summaryList){
+            Document document = new Document();
+            //Field有多种实现类可选，不同的实现类有不同的索引策略
+            document.add(new TextField("name","张三", Field.Store.YES));
+            document.add(new IntField("age",23,Field.Store.YES));
+            writer.addDocument(document);
+        }
         writer.commit();
         writer.close();
     }
@@ -54,5 +63,23 @@ public class TestLuceneIndex {
             System.out.println(document.get("name"));
             System.out.println(document.get("age"));
         }
+    }
+
+    public List<String> getDiaries(){
+        List<String> result = new ArrayList<String>();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/rvushequ","root","JIAO");
+            ResultSet rs = connection.createStatement().executeQuery("SELECT summary from diary LIMIT 200");
+            while (rs.next()){
+                String summary = rs.getString("summary");
+                result.add(summary);
+                System.out.println(summary);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }
